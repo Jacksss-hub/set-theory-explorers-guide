@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ChevronRight, Shuffle, RotateCcw } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 interface AnimatedSetCardProps {
   title: string;
@@ -13,16 +13,6 @@ interface AnimatedSetCardProps {
 
 const AnimatedSetCard = ({ title, description, elements, color, icon, onClick }: AnimatedSetCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [shuffledElements, setShuffledElements] = useState(elements);
-
-  const shuffleElements = () => {
-    const shuffled = [...elements].sort(() => Math.random() - 0.5);
-    setShuffledElements(shuffled);
-  };
-
-  const resetElements = () => {
-    setShuffledElements(elements);
-  };
 
   return (
     <div
@@ -68,10 +58,10 @@ const AnimatedSetCard = ({ title, description, elements, color, icon, onClick }:
         
         <p className="text-gray-600 mb-4">{description}</p>
         
-        {/* Interactive element display */}
+        {/* Element display */}
         <div className="mb-4">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {shuffledElements.map((element, index) => (
+          <div className="flex flex-wrap gap-2">
+            {elements.map((element, index) => (
               <span
                 key={`${element}-${index}`}
                 className={`px-3 py-1 rounded-full text-sm font-medium transition-all duration-300 animate-fade-in`}
@@ -84,30 +74,6 @@ const AnimatedSetCard = ({ title, description, elements, color, icon, onClick }:
                 {element}
               </span>
             ))}
-          </div>
-          
-          {/* Control buttons */}
-          <div className="flex gap-2">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                shuffleElements();
-              }}
-              className="flex items-center gap-1 px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200"
-            >
-              <Shuffle className="w-3 h-3" />
-              Shuffle
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                resetElements();
-              }}
-              className="flex items-center gap-1 px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200"
-            >
-              <RotateCcw className="w-3 h-3" />
-              Reset
-            </button>
           </div>
         </div>
 
