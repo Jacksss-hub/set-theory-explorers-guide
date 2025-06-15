@@ -42,7 +42,6 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
     const inB = isInB(element);
     
     if (isResultView && isInResult(element)) {
-      // Result area positioning
       return { x: 200 + (index % 3) * 40, y: 220 + Math.floor(index / 3) * 30 };
     }
     
@@ -82,7 +81,6 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
   };
 
   useEffect(() => {
-    // Auto-animate when operation changes
     const timer = setTimeout(() => {
       animateToResult();
     }, 500);
@@ -92,13 +90,34 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
 
   return (
     <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-6 rounded-xl shadow-lg border-2 border-transparent hover:border-math-blue-300 transition-all duration-300">
+      {/* Mathematical Set Notation Display */}
+      <div className="mb-6 bg-white p-4 rounded-lg shadow-md border-l-4 border-math-blue-600">
+        <h3 className="text-lg font-bold text-gray-800 mb-3 text-center">Mathematical Representation</h3>
+        <div className="grid md:grid-cols-2 gap-4 text-center">
+          <div className="bg-math-blue-50 p-3 rounded-lg">
+            <span className="font-bold text-math-blue-800">Set A = </span>
+            <span className="font-mono text-math-blue-700">{"{"}{setA.join(", ")}{"}"}</span>
+          </div>
+          <div className="bg-math-purple-50 p-3 rounded-lg">
+            <span className="font-bold text-math-purple-800">
+              {operation === 'complement' ? 'Universal Set U = ' : 'Set B = '}
+            </span>
+            <span className="font-mono text-math-purple-700">{"{"}{setB.join(", ")}{"}"}</span>
+          </div>
+        </div>
+        <div className="mt-4 bg-green-50 p-3 rounded-lg text-center">
+          <span className="font-bold text-green-800">Result = </span>
+          <span className="font-mono text-green-700">{"{"}{result.join(", ")}{"}"}</span>
+        </div>
+      </div>
+
       {/* Control buttons */}
       <div className="flex gap-4 mb-4 justify-center">
         <button
           onClick={animateToResult}
           className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-200 transform hover:scale-105"
         >
-          Show Result Animation
+          Show Elements Moving
         </button>
         <button
           onClick={resetAnimation}
@@ -115,7 +134,6 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
             <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e5e7eb" strokeWidth="0.5" opacity="0.3"/>
           </pattern>
           
-          {/* Glow effects */}
           <filter id="glow">
             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
             <feMerge> 
@@ -124,7 +142,6 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
             </feMerge>
           </filter>
           
-          {/* Movement trail effect */}
           <filter id="trail">
             <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
             <feMerge> 
@@ -132,11 +149,21 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
+
+          {/* Animated gradient for moving elements */}
+          <linearGradient id="movingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ef4444">
+              <animate attributeName="stop-color" values="#ef4444;#f97316;#eab308;#22c55e;#3b82f6;#8b5cf6;#ef4444" dur="2s" repeatCount="indefinite"/>
+            </stop>
+            <stop offset="100%" stopColor="#8b5cf6">
+              <animate attributeName="stop-color" values="#8b5cf6;#ef4444;#f97316;#eab308;#22c55e;#3b82f6;#8b5cf6" dur="2s" repeatCount="indefinite"/>
+            </stop>
+          </linearGradient>
         </defs>
         
         <rect width="400" height="280" fill="url(#grid)" />
         
-        {/* Set A Circle with animation */}
+        {/* Set A Circle with enhanced animation */}
         <circle
           cx="160"
           cy="140"
@@ -149,7 +176,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
           style={{ animationDuration: '3s' }}
         />
         
-        {/* Set B Circle with animation */}
+        {/* Set B Circle with enhanced animation */}
         <circle
           cx="240"
           cy="140"
@@ -162,7 +189,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
           style={{ animationDuration: '3s', animationDelay: '0.5s' }}
         />
         
-        {/* Result area */}
+        {/* Result area with enhanced styling */}
         {showResult && (
           <rect
             x="150"
@@ -177,7 +204,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
           />
         )}
         
-        {/* Labels */}
+        {/* Enhanced Labels with glow */}
         <text x="130" y="90" className="fill-math-blue-700 font-bold text-lg" filter="url(#glow)">A</text>
         <text x="270" y="90" className="fill-math-purple-700 font-bold text-lg" filter="url(#glow)">B</text>
         {showResult && (
@@ -186,7 +213,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
           </text>
         )}
         
-        {/* Interactive elements */}
+        {/* Interactive elements with enhanced movement */}
         {allElements.map((element, index) => {
           const position = getElementPosition(element, index, showResult && isInResult(element));
           const inResult = isInResult(element);
@@ -195,22 +222,30 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
           
           return (
             <g key={element}>
-              {/* Movement trail for moving elements */}
+              {/* Enhanced movement trail */}
               {isMoving && (
                 <>
                   <circle
-                    cx={position.x - 10}
-                    cy={position.y - 5}
+                    cx={position.x - 20}
+                    cy={position.y - 10}
+                    r="12"
+                    fill="url(#movingGradient)"
+                    opacity="0.4"
+                    filter="url(#trail)"
+                  />
+                  <circle
+                    cx={position.x - 40}
+                    cy={position.y - 20}
                     r="8"
-                    fill={inResult ? "#ef4444" : "#6b7280"}
+                    fill="url(#movingGradient)"
                     opacity="0.3"
                     filter="url(#trail)"
                   />
                   <circle
-                    cx={position.x - 20}
-                    cy={position.y - 10}
-                    r="6"
-                    fill={inResult ? "#ef4444" : "#6b7280"}
+                    cx={position.x - 60}
+                    cy={position.y - 30}
+                    r="4"
+                    fill="url(#movingGradient)"
                     opacity="0.2"
                     filter="url(#trail)"
                   />
@@ -221,7 +256,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
                 cx={position.x}
                 cy={position.y}
                 r={hoveredElement === element ? 18 : 14}
-                fill={inResult ? "#ef4444" : "#6b7280"}
+                fill={isMoving ? "url(#movingGradient)" : (inResult ? "#ef4444" : "#6b7280")}
                 stroke="white"
                 strokeWidth="3"
                 className={`cursor-pointer transition-all duration-500 hover:drop-shadow-lg ${
@@ -232,8 +267,8 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
                 onMouseEnter={() => setHoveredElement(element)}
                 onMouseLeave={() => setHoveredElement(null)}
                 style={{
-                  transform: isMoving ? 'scale(1.2)' : 'scale(1)',
-                  transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+                  transform: isMoving ? 'scale(1.3)' : 'scale(1)',
+                  transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               />
               <text
@@ -246,29 +281,42 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
                 {element}
               </text>
               
-              {/* Hover effect ring */}
+              {/* Enhanced hover effect ring */}
               {hoveredElement === element && (
-                <circle
-                  cx={position.x}
-                  cy={position.y}
-                  r="25"
-                  fill="none"
-                  stroke="#fbbf24"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                  className="animate-spin"
-                  style={{ animationDuration: '2s' }}
-                />
+                <>
+                  <circle
+                    cx={position.x}
+                    cy={position.y}
+                    r="25"
+                    fill="none"
+                    stroke="#fbbf24"
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
+                    className="animate-spin"
+                    style={{ animationDuration: '2s' }}
+                  />
+                  <circle
+                    cx={position.x}
+                    cy={position.y}
+                    r="30"
+                    fill="none"
+                    stroke="#f59e0b"
+                    strokeWidth="1"
+                    strokeDasharray="3,3"
+                    className="animate-spin"
+                    style={{ animationDuration: '3s', animationDirection: 'reverse' }}
+                  />
+                </>
               )}
               
-              {/* Moving element path indicator */}
+              {/* Enhanced movement path indicator */}
               {isMoving && (
                 <path
                   d={`M ${getElementPosition(element, index).x} ${getElementPosition(element, index).y} L ${position.x} ${position.y}`}
-                  stroke="#22c55e"
-                  strokeWidth="2"
-                  strokeDasharray="3,3"
-                  opacity="0.5"
+                  stroke="url(#movingGradient)"
+                  strokeWidth="3"
+                  strokeDasharray="5,5"
+                  opacity="0.7"
                   className="animate-pulse"
                 />
               )}
@@ -276,7 +324,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
           );
         })}
         
-        {/* Operation indicator */}
+        {/* Enhanced operation indicator */}
         <rect x="10" y="10" width="120" height="30" rx="15" fill="rgba(0,0,0,0.8)" />
         <text x="70" y="30" textAnchor="middle" className="fill-white font-semibold text-sm">
           {operation.toUpperCase()}

@@ -1,5 +1,5 @@
 
-import { Computer, BarChart3, Brain, Database } from 'lucide-react';
+import { Computer, BarChart3, Brain, Database, Shield, Users } from 'lucide-react';
 
 const Applications = () => {
   const applications = [
@@ -50,6 +50,30 @@ const Applications = () => {
         'Classification problems'
       ],
       color: 'from-orange-500 to-orange-600'
+    },
+    {
+      icon: Shield,
+      title: 'Cybersecurity & Access Control',
+      description: 'Set operations define user permissions and security policies',
+      examples: [
+        'Role-based access control (RBAC)',
+        'Permission inheritance systems',
+        'Security group management',
+        'Firewall rule configurations'
+      ],
+      color: 'from-red-500 to-red-600'
+    },
+    {
+      icon: Users,
+      title: 'Business & Marketing',
+      description: 'Customer segmentation and market analysis using set theory',
+      examples: [
+        'Customer segmentation analysis',
+        'Market research and targeting',
+        'A/B testing group divisions',
+        'Loyalty program management'
+      ],
+      color: 'from-teal-500 to-teal-600'
     }
   ];
 
@@ -65,7 +89,7 @@ const Applications = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {applications.map((app, index) => (
             <div
               key={app.title}
@@ -99,13 +123,13 @@ const Applications = () => {
           ))}
         </div>
 
-        {/* Detailed Examples */}
+        {/* Detailed Examples with enhanced mathematical formatting */}
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Practical Examples
           </h3>
           
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-8 mb-8">
             <div className="bg-math-blue-50 p-6 rounded-xl">
               <h4 className="font-bold text-math-blue-800 mb-3">Database Queries</h4>
               <p className="text-math-blue-700 mb-4">
@@ -115,6 +139,9 @@ const Applications = () => {
                 <div>UNION → A ∪ B</div>
                 <div>INTERSECT → A ∩ B</div>
                 <div>EXCEPT → A - B</div>
+              </div>
+              <div className="mt-3 text-sm">
+                <strong>Example:</strong> A = {"{users_2023}"}, B = {"{active_users}"}
               </div>
             </div>
             
@@ -128,6 +155,9 @@ const Applications = () => {
                 <div>• Event = Subset of sample space</div>
                 <div>• P(A ∪ B) = P(A) + P(B) - P(A ∩ B)</div>
               </div>
+              <div className="mt-3 text-sm">
+                <strong>Example:</strong> A = {"{even_numbers}"}, B = {"{numbers > 5}"}
+              </div>
             </div>
             
             <div className="bg-green-50 p-6 rounded-xl">
@@ -139,6 +169,42 @@ const Applications = () => {
                 <div>• Your friends = Set A</div>
                 <div>• Their friends = Set B</div>
                 <div>• Suggestions = B - A</div>
+              </div>
+              <div className="mt-3 text-sm">
+                <strong>Example:</strong> A = {"{Alice, Bob, Carol}"}, B = {"{Bob, Carol, Dave, Eve}"}
+              </div>
+            </div>
+          </div>
+
+          {/* New Enhanced Examples */}
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div className="bg-red-50 p-6 rounded-xl">
+              <h4 className="font-bold text-red-800 mb-3">Access Control Systems</h4>
+              <p className="text-red-700 mb-4">
+                User permissions using set intersections:
+              </p>
+              <div className="bg-white p-3 rounded text-sm">
+                <div>• Admin_Rights = {"{read, write, delete, execute}"}</div>
+                <div>• User_Rights = {"{read, write}"}</div>
+                <div>• Final_Access = Admin_Rights ∩ User_Context</div>
+              </div>
+              <div className="mt-3 text-sm">
+                <strong>Result:</strong> Secure permission validation through set operations
+              </div>
+            </div>
+            
+            <div className="bg-teal-50 p-6 rounded-xl">
+              <h4 className="font-bold text-teal-800 mb-3">Customer Segmentation</h4>
+              <p className="text-teal-700 mb-4">
+                Marketing segments using set theory:
+              </p>
+              <div className="bg-white p-3 rounded text-sm">
+                <div>• Premium_Customers = {"{age > 35, income > 50k}"}</div>
+                <div>• Tech_Savvy = {"{uses_app, online_shopper}"}</div>
+                <div>• Target_Group = Premium ∩ Tech_Savvy</div>
+              </div>
+              <div className="mt-3 text-sm">
+                <strong>Result:</strong> Precise customer targeting for campaigns
               </div>
             </div>
           </div>
