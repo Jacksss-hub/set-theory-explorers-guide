@@ -19,7 +19,7 @@ const Hero = () => {
         <div className="absolute bottom-1/4 left-1/3 text-4xl text-math-purple-300 opacity-40">∋</div>
         
         {/* Set notation examples */}
-        <div className="absolute top-1/4 right-1/3 text-2xl text-math-blue-300 opacity-30 font-mono">A = {1, 2, 3}</div>
+        <div className="absolute top-1/4 right-1/3 text-2xl text-math-blue-300 opacity-30 font-mono">A = {"{1, 2, 3}"}</div>
         <div className="absolute bottom-1/3 left-1/4 text-2xl text-math-purple-300 opacity-30 font-mono">B ∪ C</div>
         <div className="absolute top-2/3 right-1/4 text-2xl text-math-blue-300 opacity-30 font-mono">R ⊆ A × B</div>
         
