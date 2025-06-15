@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import AboutSets from '../components/AboutSets';
 import TypesOfSets from '../components/TypesOfSets';
 import Operations from '../components/Operations';
+import AdvancedTopics from '../components/AdvancedTopics';
 import Applications from '../components/Applications';
 import Gallery from '../components/Gallery';
 import Contact from '../components/Contact';
@@ -17,6 +18,7 @@ const Index = () => {
       <AboutSets />
       <TypesOfSets />
       <Operations />
+      <AdvancedTopics />
       <Applications />
       <Gallery />
       <Contact />

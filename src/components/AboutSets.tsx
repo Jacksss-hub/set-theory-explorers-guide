@@ -1,5 +1,5 @@
 
-import { Clock, Brain, Target } from 'lucide-react';
+import { Clock, Brain, Target, BookOpen, Network, Calculator } from 'lucide-react';
 
 const AboutSets = () => {
   return (
@@ -71,6 +71,51 @@ const AboutSets = () => {
               Essential for understanding probability, statistics, computer science, 
               and advanced mathematical concepts.
             </p>
+          </div>
+        </div>
+
+        {/* Syllabus Topics Section */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Set Theory Syllabus Topics</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-full mb-4">
+                <BookOpen className="h-5 w-5" />
+              </div>
+              <h4 className="font-bold text-blue-800 mb-3">Basic Concepts</h4>
+              <ul className="text-blue-700 text-sm space-y-1">
+                <li>• Basic concepts of Sets</li>
+                <li>• Subset relations</li>
+                <li>• Algebra of sets</li>
+                <li>• The power set</li>
+              </ul>
+            </div>
+            
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl">
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-purple-600 text-white rounded-full mb-4">
+                <Network className="h-5 w-5" />
+              </div>
+              <h4 className="font-bold text-purple-800 mb-3">Relations & Products</h4>
+              <ul className="text-purple-700 text-sm space-y-1">
+                <li>• Ordered pairs</li>
+                <li>• Cartesian product</li>
+                <li>• Relations on sets</li>
+                <li>• Types of relations</li>
+              </ul>
+            </div>
+            
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl">
+              <div className="inline-flex items-center justify-center w-10 h-10 bg-green-600 text-white rounded-full mb-4">
+                <Calculator className="h-5 w-5" />
+              </div>
+              <h4 className="font-bold text-green-800 mb-3">Advanced Topics</h4>
+              <ul className="text-green-700 text-sm space-y-1">
+                <li>• Partial ordering (Poset)</li>
+                <li>• Hasse diagrams</li>
+                <li>• Lattices & Sublattices</li>
+                <li>• Boolean algebra</li>
+              </ul>
+            </div>
           </div>
         </div>
 
