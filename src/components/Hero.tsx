@@ -1,7 +1,7 @@
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-math-blue-50 via-white to-math-purple-50 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Mathematical background imagery */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
         {/* Venn diagram circles */}
