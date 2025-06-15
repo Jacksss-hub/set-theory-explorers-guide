@@ -18,6 +18,14 @@ const Footer = () => {
     { name: 'Study Guide', href: '#' },
   ];
 
+  const creators = [
+    'ANKIT PAI N (2462036)',
+    'DEAN JOAH BELL (2462061)', 
+    'EVAN K S (2462067)',
+    'JOSHUA ZACHARY JOSE (2462093)',
+    'SREYA ANN BINOY (2462155)'
+  ];
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -84,8 +92,22 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Created By Section */}
+        <div className="mt-8 pt-8 border-t border-gray-700">
+          <div className="bg-gray-800 rounded-lg p-6 mb-8">
+            <h4 className="text-lg font-semibold mb-4 text-math-blue-400">Created By</h4>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {creators.map((creator) => (
+                <div key={creator} className="text-gray-300 text-sm">
+                  {creator}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Educational Disclaimer */}
-        <div className="mt-12 pt-8 border-t border-gray-700">
+        <div className="pt-8 border-t border-gray-700">
           <div className="bg-gray-800 rounded-lg p-6 mb-8">
             <h4 className="text-lg font-semibold mb-3 text-math-blue-400">Educational Purpose</h4>
             <p className="text-gray-300 text-sm">
