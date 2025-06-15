@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import InteractiveVennDiagram from './InteractiveVennDiagram';
 import AnimatedSetCard from './AnimatedSetCard';
 import { Play, Pause, RotateCcw, Zap } from 'lucide-react';
+import LiveSetCalculator from './LiveSetCalculator';
 
 const Gallery = () => {
   const [selectedDiagram, setSelectedDiagram] = useState<string>('union');
@@ -170,45 +170,8 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* Interactive Examples */}
-        <div className="bg-white p-8 rounded-2xl shadow-xl mb-12 border-2 border-transparent hover:border-math-blue-300 transition-all duration-300">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Live Set Calculator
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-gradient-to-br from-math-blue-50 to-math-blue-100 rounded-xl transform hover:scale-105 transition-all duration-300">
-              <h4 className="font-bold text-math-blue-800 mb-3">Set A</h4>
-              <div className="flex flex-wrap justify-center gap-2 mb-4">
-                {operations[selectedDiagram as keyof typeof operations].setA.map((element, i) => (
-                  <span key={i} className="px-3 py-1 bg-math-blue-600 text-white rounded-full text-sm font-medium animate-fade-in">
-                    {element}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            <div className="text-center p-6 bg-gradient-to-br from-math-purple-50 to-math-purple-100 rounded-xl transform hover:scale-105 transition-all duration-300">
-              <h4 className="font-bold text-math-purple-800 mb-3">Set B</h4>
-              <div className="flex flex-wrap justify-center gap-2 mb-4">
-                {operations[selectedDiagram as keyof typeof operations].setB.map((element, i) => (
-                  <span key={i} className="px-3 py-1 bg-math-purple-600 text-white rounded-full text-sm font-medium animate-fade-in">
-                    {element}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            <div className="text-center p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl transform hover:scale-105 transition-all duration-300">
-              <h4 className="font-bold text-green-800 mb-3">Result</h4>
-              <div className="flex flex-wrap justify-center gap-2 mb-4">
-                {/* Result calculation would go here */}
-                <span className="px-3 py-1 bg-green-600 text-white rounded-full text-sm font-medium animate-bounce">
-                  Interactive!
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Live Set Calculator - Replace the old static one */}
+        <LiveSetCalculator />
 
         {/* Mathematical Notation Reference with animations */}
         <div className="bg-gradient-to-r from-math-blue-600 to-math-purple-600 text-white p-8 rounded-2xl shadow-xl">
