@@ -42,15 +42,54 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
     const inB = isInB(element);
     
     if (isResultView && isInResult(element)) {
-      return { x: 200 + (index % 3) * 40, y: 220 + Math.floor(index / 3) * 30 };
+      // Improved result box positioning - ensure elements stay within bounds
+      const resultElements = result;
+      const elementIndex = resultElements.indexOf(element);
+      const cols = Math.min(3, resultElements.length);
+      const rows = Math.ceil(resultElements.length / cols);
+      
+      // Result box bounds: x: 150-250, y: 210-260
+      const boxWidth = 100;
+      const boxHeight = 50;
+      const startX = 150;
+      const startY = 215;
+      
+      const col = elementIndex % cols;
+      const row = Math.floor(elementIndex / cols);
+      
+      const spacingX = boxWidth / (cols + 1);
+      const spacingY = boxHeight / (rows + 1);
+      
+      return { 
+        x: startX + spacingX * (col + 1), 
+        y: startY + spacingY * (row + 1) 
+      };
     }
     
     if (inA && inB) {
-      return { x: 200 + (index % 2) * 30, y: 140 + Math.floor(index / 2) * 30 };
+      // Intersection area positioning
+      const intersectionElements = allElements.filter(el => isInA(el) && isInB(el));
+      const intersectionIndex = intersectionElements.indexOf(element);
+      return { 
+        x: 195 + (intersectionIndex % 2) * 20, 
+        y: 135 + Math.floor(intersectionIndex / 2) * 20 
+      };
     } else if (inA) {
-      return { x: 130 + (index % 2) * 25, y: 120 + Math.floor(index / 2) * 25 };
+      // Set A only positioning
+      const setAOnlyElements = allElements.filter(el => isInA(el) && !isInB(el));
+      const setAOnlyIndex = setAOnlyElements.indexOf(element);
+      return { 
+        x: 140 + (setAOnlyIndex % 2) * 20, 
+        y: 125 + Math.floor(setAOnlyIndex / 2) * 20 
+      };
     } else {
-      return { x: 270 + (index % 2) * 25, y: 120 + Math.floor(index / 2) * 25 };
+      // Set B only positioning
+      const setBOnlyElements = allElements.filter(el => !isInA(el) && isInB(el));
+      const setBOnlyIndex = setBOnlyElements.indexOf(element);
+      return { 
+        x: 250 + (setBOnlyIndex % 2) * 20, 
+        y: 125 + Math.floor(setBOnlyIndex / 2) * 20 
+      };
     }
   };
 
@@ -189,17 +228,18 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
           style={{ animationDuration: '3s', animationDelay: '0.5s' }}
         />
         
-        {/* Result area with enhanced styling */}
+        {/* Result area with better positioning and styling */}
         {showResult && (
           <rect
             x="150"
-            y="200"
+            y="210"
             width="100"
-            height="60"
-            fill="rgba(34, 197, 94, 0.2)"
+            height="50"
+            fill="rgba(34, 197, 94, 0.3)"
             stroke="#22c55e"
-            strokeWidth="2"
+            strokeWidth="3"
             strokeDasharray="5,5"
+            rx="8"
             className="animate-pulse"
           />
         )}
@@ -208,8 +248,8 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
         <text x="130" y="90" className="fill-math-blue-700 font-bold text-lg" filter="url(#glow)">A</text>
         <text x="270" y="90" className="fill-math-purple-700 font-bold text-lg" filter="url(#glow)">B</text>
         {showResult && (
-          <text x="200" y="190" className="fill-green-700 font-bold text-sm" textAnchor="middle" filter="url(#glow)">
-            Result
+          <text x="200" y="200" className="fill-green-700 font-bold text-sm" textAnchor="middle" filter="url(#glow)">
+            Result Box
           </text>
         )}
         
@@ -226,27 +266,19 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
               {isMoving && (
                 <>
                   <circle
-                    cx={position.x - 20}
-                    cy={position.y - 10}
-                    r="12"
+                    cx={position.x - 15}
+                    cy={position.y - 8}
+                    r="10"
                     fill="url(#movingGradient)"
                     opacity="0.4"
                     filter="url(#trail)"
                   />
                   <circle
-                    cx={position.x - 40}
-                    cy={position.y - 20}
-                    r="8"
+                    cx={position.x - 30}
+                    cy={position.y - 16}
+                    r="6"
                     fill="url(#movingGradient)"
                     opacity="0.3"
-                    filter="url(#trail)"
-                  />
-                  <circle
-                    cx={position.x - 60}
-                    cy={position.y - 30}
-                    r="4"
-                    fill="url(#movingGradient)"
-                    opacity="0.2"
                     filter="url(#trail)"
                   />
                 </>
@@ -255,10 +287,10 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
               <circle
                 cx={position.x}
                 cy={position.y}
-                r={hoveredElement === element ? 18 : 14}
+                r={hoveredElement === element ? 16 : 12}
                 fill={isMoving ? "url(#movingGradient)" : (inResult ? "#ef4444" : "#6b7280")}
                 stroke="white"
-                strokeWidth="3"
+                strokeWidth="2"
                 className={`cursor-pointer transition-all duration-500 hover:drop-shadow-lg ${
                   isAnimated ? 'animate-bounce' : ''
                 } ${isMoving ? 'animate-pulse' : ''}`}
@@ -267,15 +299,15 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
                 onMouseEnter={() => setHoveredElement(element)}
                 onMouseLeave={() => setHoveredElement(null)}
                 style={{
-                  transform: isMoving ? 'scale(1.3)' : 'scale(1)',
+                  transform: isMoving ? 'scale(1.2)' : 'scale(1)',
                   transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               />
               <text
                 x={position.x}
-                y={position.y + 5}
+                y={position.y + 4}
                 textAnchor="middle"
-                className="fill-white font-bold text-sm pointer-events-none"
+                className="fill-white font-bold text-xs pointer-events-none"
                 filter="url(#glow)"
               >
                 {element}
@@ -287,7 +319,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
                   <circle
                     cx={position.x}
                     cy={position.y}
-                    r="25"
+                    r="22"
                     fill="none"
                     stroke="#fbbf24"
                     strokeWidth="2"
@@ -298,7 +330,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
                   <circle
                     cx={position.x}
                     cy={position.y}
-                    r="30"
+                    r="26"
                     fill="none"
                     stroke="#f59e0b"
                     strokeWidth="1"
@@ -314,7 +346,7 @@ const InteractiveVennDiagram = ({ setA, setB, operation, onElementClick }: Inter
                 <path
                   d={`M ${getElementPosition(element, index).x} ${getElementPosition(element, index).y} L ${position.x} ${position.y}`}
                   stroke="url(#movingGradient)"
-                  strokeWidth="3"
+                  strokeWidth="2"
                   strokeDasharray="5,5"
                   opacity="0.7"
                   className="animate-pulse"
