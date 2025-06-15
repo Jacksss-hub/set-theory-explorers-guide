@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,20 +38,36 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Custom math colors */
+    --math-blue-50: 239 100% 97%;
+    --math-blue-100: 238 100% 93%;
+    --math-blue-200: 239 100% 85%;
+    --math-blue-300: 240 100% 74%;
+    --math-blue-400: 242 100% 61%;
+    --math-blue-500: 244 100% 59%;
+    --math-blue-600: 246 83% 57%;
+    --math-blue-700: 247 72% 50%;
+    --math-blue-800: 248 69% 41%;
+    --math-blue-900: 248 73% 34%;
+
+    --math-purple-50: 283 100% 98%;
+    --math-purple-100: 282 100% 95%;
+    --math-purple-200: 282 100% 89%;
+    --math-purple-300: 282 100% 80%;
+    --math-purple-400: 282 100% 69%;
+    --math-purple-500: 283 100% 58%;
+    --math-purple-600: 284 87% 48%;
+    --math-purple-700: 285 79% 40%;
+    --math-purple-800: 286 74% 33%;
+    --math-purple-900: 287 69% 26%;
   }
 
   .dark {
@@ -100,4 +117,58 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom animations for mathematical elements */
+@layer components {
+  .math-blue-50 { @apply bg-blue-50; }
+  .math-blue-100 { @apply bg-blue-100; }
+  .math-blue-200 { @apply bg-blue-200; }
+  .math-blue-300 { @apply bg-blue-300; }
+  .math-blue-400 { @apply bg-blue-400; }
+  .math-blue-500 { @apply bg-blue-500; }
+  .math-blue-600 { @apply bg-blue-600; }
+  .math-blue-700 { @apply bg-blue-700; }
+  .math-blue-800 { @apply bg-blue-800; }
+  .math-blue-900 { @apply bg-blue-900; }
+
+  .math-purple-50 { @apply bg-purple-50; }
+  .math-purple-100 { @apply bg-purple-100; }
+  .math-purple-200 { @apply bg-purple-200; }
+  .math-purple-300 { @apply bg-purple-300; }
+  .math-purple-400 { @apply bg-purple-400; }
+  .math-purple-500 { @apply bg-purple-500; }
+  .math-purple-600 { @apply bg-purple-600; }
+  .math-purple-700 { @apply bg-purple-700; }
+  .math-purple-800 { @apply bg-purple-800; }
+  .math-purple-900 { @apply bg-purple-900; }
+
+  .text-math-blue-600 { @apply text-blue-600; }
+  .text-math-blue-700 { @apply text-blue-700; }
+  .text-math-blue-800 { @apply text-blue-800; }
+  .text-math-purple-600 { @apply text-purple-600; }
+  .text-math-purple-700 { @apply text-purple-700; }
+  .text-math-purple-800 { @apply text-purple-800; }
+
+  .border-math-blue-300 { @apply border-blue-300; }
+  .border-math-blue-500 { @apply border-blue-500; }
+}
+
+/* Additional animations */
+@keyframes slide-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-right {
+  animation: slide-right 1.5s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out;
 }

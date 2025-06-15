@@ -19,7 +19,10 @@ const Operations = () => {
       result: [...new Set([...customSetA, ...customSetB])],
       explanation: 'The union contains all unique elements from both sets.',
       formula: 'A ∪ B = {x | x ∈ A or x ∈ B}',
-      color: 'from-blue-500 to-cyan-500'
+      colorClass: 'from-blue-500 to-cyan-500',
+      bgClass: 'from-blue-50 to-blue-100',
+      textClass: 'text-blue-800',
+      bgColorClass: 'bg-blue-600'
     },
     intersection: {
       title: 'Intersection (A ∩ B)',
@@ -29,7 +32,10 @@ const Operations = () => {
       result: customSetA.filter(el => customSetB.includes(el)),
       explanation: 'The intersection contains only the common elements.',
       formula: 'A ∩ B = {x | x ∈ A and x ∈ B}',
-      color: 'from-purple-500 to-pink-500'
+      colorClass: 'from-purple-500 to-pink-500',
+      bgClass: 'from-purple-50 to-purple-100',
+      textClass: 'text-purple-800',
+      bgColorClass: 'bg-purple-600'
     },
     difference: {
       title: 'Difference (A - B)',
@@ -39,7 +45,10 @@ const Operations = () => {
       result: customSetA.filter(el => !customSetB.includes(el)),
       explanation: 'The difference contains elements unique to the first set.',
       formula: 'A - B = {x | x ∈ A and x ∉ B}',
-      color: 'from-green-500 to-emerald-500'
+      colorClass: 'from-green-500 to-emerald-500',
+      bgClass: 'from-green-50 to-green-100',
+      textClass: 'text-green-800',
+      bgColorClass: 'bg-green-600'
     },
     complement: {
       title: 'Complement (A\')',
@@ -49,7 +58,10 @@ const Operations = () => {
       result: ['1', '3', '5', '7', '8'],
       explanation: 'The complement contains all elements not in the original set.',
       formula: 'A\' = {x | x ∈ U and x ∉ A}',
-      color: 'from-orange-500 to-red-500'
+      colorClass: 'from-orange-500 to-red-500',
+      bgClass: 'from-orange-50 to-orange-100',
+      textClass: 'text-orange-800',
+      bgColorClass: 'bg-orange-600'
     }
   };
 
@@ -103,7 +115,7 @@ const Operations = () => {
               onClick={() => setActiveOperation(key)}
               className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 overflow-hidden group ${
                 activeOperation === key
-                  ? `bg-gradient-to-r ${operation.color} text-white shadow-xl`
+                  ? `bg-gradient-to-r ${operation.colorClass} text-white shadow-xl`
                   : 'bg-white text-gray-700 hover:bg-gray-100 shadow-lg border-2 border-gray-200'
               }`}
             >
@@ -117,7 +129,7 @@ const Operations = () => {
 
         {/* Interactive Formula Display */}
         <div className="mb-8 text-center">
-          <div className={`inline-block px-8 py-4 bg-gradient-to-r ${currentOp.color} text-white rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300`}>
+          <div className={`inline-block px-8 py-4 bg-gradient-to-r ${currentOp.colorClass} text-white rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300`}>
             <div className="flex items-center gap-2 justify-center mb-2">
               <Sparkles className="w-5 h-5 animate-pulse" />
               <span className="font-bold">Mathematical Formula</span>
@@ -138,7 +150,7 @@ const Operations = () => {
             onElementClick={(element) => console.log(`Element ${element} clicked in ${activeOperation}`)}
           />
           
-          <div className={`mt-6 p-6 bg-gradient-to-r ${currentOp.color} text-white rounded-xl shadow-lg transform hover:scale-102 transition-all duration-300`}>
+          <div className={`mt-6 p-6 bg-gradient-to-r ${currentOp.colorClass} text-white rounded-xl shadow-lg transform hover:scale-102 transition-all duration-300`}>
             <h3 className="font-bold text-lg mb-2 flex items-center gap-2">
               <Sparkles className="w-5 h-5" />
               Explanation
@@ -205,68 +217,97 @@ const Operations = () => {
 
         {/* Operation Properties with enhanced visuals */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              title: 'Union Properties',
-              color: 'blue',
-              properties: [
-                'Commutative: A ∪ B = B ∪ A',
-                'Associative: (A ∪ B) ∪ C = A ∪ (B ∪ C)',
-                'Identity: A ∪ ∅ = A'
-              ],
-              icon: '∪'
-            },
-            {
-              title: 'Intersection Properties',
-              color: 'purple',
-              properties: [
-                'Commutative: A ∩ B = B ∩ A',
-                'Associative: (A ∩ B) ∩ C = A ∩ (B ∩ C)',
-                'Identity: A ∩ U = A'
-              ],
-              icon: '∩'
-            },
-            {
-              title: 'Difference Properties',
-              color: 'green',
-              properties: [
-                'Not commutative: A - B ≠ B - A',
-                'A - A = ∅',
-                'A - ∅ = A'
-              ],
-              icon: '-'
-            },
-            {
-              title: 'Complement Properties',
-              color: 'orange',
-              properties: [
-                'Double complement: (A\')\'= A',
-                'De Morgan\'s laws apply',
-                'A ∪ A\' = U'
-              ],
-              icon: '\''
-            }
-          ].map((section, index) => (
-            <div 
-              key={index}
-              className={`bg-gradient-to-br from-${section.color}-50 to-${section.color}-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group`}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`w-10 h-10 bg-${section.color}-600 rounded-full flex items-center justify-center text-white font-bold text-lg group-hover:animate-pulse`}>
-                  {section.icon}
-                </div>
-                <h3 className={`font-bold text-${section.color}-800`}>{section.title}</h3>
+          <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg group-hover:animate-pulse">
+                ∪
               </div>
-              <ul className={`text-${section.color}-700 text-sm space-y-2`}>
-                {section.properties.map((prop, i) => (
-                  <li key={i} className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
-                    <span className="text-xs mt-1">•</span>
-                    <span>{prop}</span>
-                  </li>
-                ))}
-              </ul>
+              <h3 className="font-bold text-blue-800">Union Properties</h3>
             </div>
-          ))}
+            <ul className="text-blue-700 text-sm space-y-2">
+              <li className="flex items-start gap-2 animate-fade-in">
+                <span className="text-xs mt-1">•</span>
+                <span>Commutative: A ∪ B = B ∪ A</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>Associative: (A ∪ B) ∪ C = A ∪ (B ∪ C)</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>Identity: A ∪ ∅ = A</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg group-hover:animate-pulse">
+                ∩
+              </div>
+              <h3 className="font-bold text-purple-800">Intersection Properties</h3>
+            </div>
+            <ul className="text-purple-700 text-sm space-y-2">
+              <li className="flex items-start gap-2 animate-fade-in">
+                <span className="text-xs mt-1">•</span>
+                <span>Commutative: A ∩ B = B ∩ A</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>Associative: (A ∩ B) ∩ C = A ∩ (B ∩ C)</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>Identity: A ∩ U = A</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg group-hover:animate-pulse">
+                -
+              </div>
+              <h3 className="font-bold text-green-800">Difference Properties</h3>
+            </div>
+            <ul className="text-green-700 text-sm space-y-2">
+              <li className="flex items-start gap-2 animate-fade-in">
+                <span className="text-xs mt-1">•</span>
+                <span>Not commutative: A - B ≠ B - A</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>A - A = ∅</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>A - ∅ = A</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg group-hover:animate-pulse">
+                '
+              </div>
+              <h3 className="font-bold text-orange-800">Complement Properties</h3>
+            </div>
+            <ul className="text-orange-700 text-sm space-y-2">
+              <li className="flex items-start gap-2 animate-fade-in">
+                <span className="text-xs mt-1">•</span>
+                <span>Double complement: (A')' = A</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>De Morgan's laws apply</span>
+              </li>
+              <li className="flex items-start gap-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <span className="text-xs mt-1">•</span>
+                <span>A ∪ A' = U</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
