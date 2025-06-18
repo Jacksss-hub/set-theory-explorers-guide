@@ -7,6 +7,7 @@ import Operations from '../components/Operations';
 import AdvancedTopics from '../components/AdvancedTopics';
 import Applications from '../components/Applications';
 import Gallery from '../components/Gallery';
+import SyllabusSection from '../components/SyllabusSection';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 
@@ -21,6 +22,7 @@ const Index = () => {
       <AdvancedTopics />
       <Applications />
       <Gallery />
+      <SyllabusSection />
       <Contact />
       <Footer />
     </div>
